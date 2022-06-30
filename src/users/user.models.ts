@@ -1,4 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  Column,
+  DataType,
+  Model,
+  Table,
+  BelongsToMany,
+} from 'sequelize-typescript';
+import { Role } from 'src/roles/roles.models';
+import { UserRoles } from 'src/roles/user-roles.models';
 
 interface UserCreationAttrs {
   email: string;
@@ -23,4 +31,10 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   isAdmin: boolean;
+
+  @Column({ type: DataType.INTEGER, defaultValue: 0 })
+  balances: number;
+
+  @BelongsToMany(() => Role, () => UserRoles)
+  roles: Role[];
 }
