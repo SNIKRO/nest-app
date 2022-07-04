@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.models';
+import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
-import { Role } from './roles/roles.models';
-import { UserRoles } from './roles/user-roles.models';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -19,13 +17,15 @@ import { UserRoles } from './roles/user-roles.models';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [User, Role, UserRoles],
+      entities: [User],
+      synchronize: true,
       autoLoadEntities: true,
     }),
     UsersModule,
-    RolesModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
