@@ -20,4 +20,12 @@ export class UsersService {
   async getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
+
+  async findeOne(id: number): Promise<User> {
+    return this.userRepository.findOneBy({ id: id });
+  }
+
+  async deleteUser(id: string): Promise<void> {
+    await this.userRepository.delete(id);
+  }
 }

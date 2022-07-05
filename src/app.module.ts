@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { DataSource } from 'typeorm';
+import { CardsModule } from './cards/cards.module';
+import { ColumnModule } from './column/column.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { DataSource } from 'typeorm';
       autoLoadEntities: true,
     }),
     UsersModule,
+    CardsModule,
+    ColumnModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],
