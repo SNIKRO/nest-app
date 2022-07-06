@@ -7,6 +7,9 @@ import { DataSource } from 'typeorm';
 import { CardsModule } from './cards/cards.module';
 import { ColumnModule } from './column/column.module';
 import { CommentsModule } from './comments/comments.module';
+import { Cards } from './cards/cards.entity';
+import { Comments } from './comments/comments.entity';
+import { Columns } from './column/column.entity';
 
 @Module({
   imports: [
@@ -20,7 +23,7 @@ import { CommentsModule } from './comments/comments.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [User],
+      entities: [User, Cards, Comments, Columns],
       synchronize: true,
       autoLoadEntities: true,
     }),

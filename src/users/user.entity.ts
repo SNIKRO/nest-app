@@ -1,4 +1,12 @@
-import { Column, Entity, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
+import { Cards } from 'src/cards/cards.entity';
+import {
+  Column,
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -11,9 +19,12 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @Column({ default: false })
-  isAdmin: boolean;
+  @Column({ default: null })
+  token: string;
 
-  @Column({ default: 0 })
-  balances: number;
+  @OneToMany(() => Cards, (cards: Cards) => cards.user_id, {
+    cascade: true,
+  })
+  @JoinColumn()
+  cards: Cards[];
 }
